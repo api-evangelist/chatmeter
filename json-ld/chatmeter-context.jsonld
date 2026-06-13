@@ -1,0 +1,46 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "chatmeter": "https://www.chatmeter.com/",
+    "api": "https://newapi.chatmeter.com/",
+    "aid": "https://apis.io/aid/",
+    "RepuationManagement": "https://schema.org/LocalBusiness",
+    "ListingsManagement": "https://schema.org/LocalBusiness",
+    "ReviewManagement": "https://schema.org/Review",
+    "SocialMonitoring": "https://schema.org/SocialMediaPosting",
+    "MultiLocation": "https://schema.org/LocalBusiness",
+    "LocalSEO": "https://schema.org/LocalBusiness",
+    "CompetitiveIntelligence": "https://schema.org/Report"
+  },
+  "@type": "WebAPI",
+  "@id": "https://apis.io/aid/chatmeter",
+  "name": "Chatmeter API",
+  "description": "AI-powered multi-location intelligence platform REST API for managing business listings, monitoring and responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.",
+  "url": "https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API",
+  "provider": {
+    "@type": "Organization",
+    "name": "Chatmeter",
+    "url": "https://www.chatmeter.com",
+    "sameAs": [
+      "https://www.linkedin.com/company/chatmeter",
+      "https://x.com/chatmeter"
+    ]
+  },
+  "documentation": "https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API",
+  "termsOfService": "https://www.chatmeter.com/privacy-policy/",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.chatmeter.com/pricing/"
+  },
+  "keywords": [
+    "Reputation Management",
+    "Local SEO",
+    "Listings Management",
+    "Review Management",
+    "Social Media",
+    "Multi-Location",
+    "Competitive Intelligence"
+  ],
+  "endpointUrl": "https://newapi.chatmeter.com",
+  "authenticationMethod": "JWT"
+}
