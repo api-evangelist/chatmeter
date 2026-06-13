@@ -1,0 +1,11 @@
+name: Chatmeter Rate Limits
+description: Chatmeter does not publicly document specific rate limits for its REST API. Rate limit details are disclosed as part of the enterprise onboarding process and may vary by plan and negotiated contract terms.
+url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+public: false
+notes: >
+  No public rate limit documentation is available for the Chatmeter API.
+  The API uses JSON Web Token (JWT) authentication; quota and throttle thresholds
+  are communicated through the Customer Success Manager during onboarding.
+  Customers should contact support or their CSM for specific rate limit details.
+limits: []
+contact: https://www.chatmeter.com/contact/

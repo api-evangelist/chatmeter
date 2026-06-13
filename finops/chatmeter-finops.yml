@@ -1,0 +1,29 @@
+name: Chatmeter FinOps
+description: Financial operations considerations for Chatmeter API and platform usage, covering cost structure, contract terms, and budget planning for multi-location businesses.
+url: https://www.chatmeter.com/pricing/
+model: location-based custom quote
+notes: >
+  Chatmeter pricing is entirely sales-led with no self-serve purchasing.
+  Costs scale with the number of managed locations and selected feature modules.
+  Key FinOps considerations include:
+  - Annual contracts only; no monthly billing option available
+  - Early termination fee of approximately $4,000 reported
+  - Estimated annual spend range $16,000-$42,000 based on third-party transaction data
+  - Per-user pricing does not apply; unlimited users are included
+  - Individual feature modules can be purchased a la carte
+  - API access is part of the Premium tier
+  - Budget for implementation and onboarding time with Customer Success Manager
+billing:
+  cycle: annual
+  model: per-location
+  public: false
+cost_drivers:
+  - Number of managed locations
+  - Selected feature modules (Listings, Reviews, Social, Competitive Intelligence, Surveys, Analytics, API)
+  - Industry vertical
+  - Contract length
+optimization:
+  - Select only the feature modules needed for your locations
+  - Negotiate volume discounts for 150+ locations
+  - Review contract terms carefully before signing due to early termination fees
+contact: https://www.chatmeter.com/pricing/

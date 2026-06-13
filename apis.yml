@@ -1,0 +1,56 @@
+aid: chatmeter
+name: Chatmeter
+description: Chatmeter is an AI-powered multi-location intelligence platform offering a REST API for managing business listings, monitoring and responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/chatmeter/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Reputation Management
+  - Local SEO
+  - Listings Management
+  - Review Management
+  - Social Media
+  - Multi-Location
+  - Competitive Intelligence
+apis:
+  - name: Chatmeter API
+    description: REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring, surveys, and user administration. Uses JSON Web Token (JWT) authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+    baseURL: https://newapi.chatmeter.com
+    tags:
+      - Reputation Management
+      - Listings
+      - Reviews
+      - Social Media
+      - Local SEO
+    properties:
+      - type: Documentation
+        url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+      - type: Authentication
+        url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+common:
+  - type: Website
+    url: https://www.chatmeter.com
+  - type: Documentation
+    url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+  - type: Blog
+    url: https://www.chatmeter.com/category/blog/
+  - type: Pricing
+    url: https://www.chatmeter.com/pricing/
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/chatmeter
+  - type: X
+    url: https://x.com/chatmeter
+  - type: Plans
+    url: plans/chatmeter-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/chatmeter-rate-limits.yml
+  - type: FinOps
+    url: finops/chatmeter-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

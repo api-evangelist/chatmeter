@@ -1,0 +1,33 @@
+name: Chatmeter Plans and Pricing
+description: Chatmeter uses a location-based pricing model with no publicly listed tiers. Pricing is customized based on the number of locations, industry vertical, and selected feature modules. All quotes require contacting sales.
+url: https://www.chatmeter.com/pricing/
+model: location-based
+public: false
+notes: >
+  Chatmeter does not publish fixed plan tiers or per-location costs on its website.
+  Prospects fill out a form indicating number of locations (1-4, 5-14, 15-49,
+  50-149, 150-499, 500+, or Agency/Partner) and industry, then receive a custom
+  quote. Annual contracts only; no monthly billing. Early termination fee reported
+  at ~$4,000. Estimated annual range from third-party transaction data: $16,000-$42,000.
+  API access is included in the Premium tier per third-party sources.
+plans:
+  - name: Basic
+    description: Entry-level plan with core reputation management features
+    public: false
+  - name: Plus
+    description: Mid-tier plan with additional capabilities
+    public: false
+  - name: Premium
+    description: Full-featured plan including API access, multi-location management, and review response automation
+    public: false
+    features:
+      - Listings Management
+      - Review Management
+      - Social Media Management
+      - Competitive Intelligence
+      - Local Pages / SEO
+      - Surveys
+      - Analytics and Insights
+      - Pulse AI
+      - API Access
+contact: https://www.chatmeter.com/pricing/
