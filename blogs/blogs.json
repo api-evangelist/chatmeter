@@ -1,63 +1,18 @@
 {
-  "provider": "chatmeter",
-  "blog_url": "https://www.chatmeter.com/category/blog/",
-  "fetched": "2026-06-14T20:42:17Z",
-  "posts": [
-    {
-      "title": "Chatmeter Earns Placement on Built In's Best Places to Work List",
-      "url": "https://www.chatmeter.com/resource/blog/chatmeter-earns-placement-on-built-ins-best-places-to-work-list/"
-    },
-    {
-      "title": "Competitive Marketing Intelligence: What It Is and 10 Real-World Examples",
-      "url": "https://www.chatmeter.com/resource/blog/competitive-marketing-intelligence-examples/"
-    },
-    {
-      "title": "Franchise Reputation Management: A Complete Guide for Multi-Location Brands",
-      "url": "https://www.chatmeter.com/resource/blog/franchise-reputation-management/"
-    },
-    {
-      "title": "Healthcare Reputation Management Software: 8 Solutions You Can Trust in 2026",
-      "url": "https://www.chatmeter.com/resource/blog/healthcare-reputation-management-software/"
-    },
-    {
-      "title": "10 Best Restaurant Reputation Management Software Options for 2026",
-      "url": "https://www.chatmeter.com/resource/blog/best-restaurant-reputation-management-software/"
-    },
-    {
-      "title": "Yelp Reputation Management: How to Protect and Improve Your Business Profile",
-      "url": "https://www.chatmeter.com/resource/blog/yelp-reputation-management/"
-    },
-    {
-      "title": "Restaurant Reputation Management: A Complete Guide to Boosting Reviews and Sales",
-      "url": "https://www.chatmeter.com/resource/blog/restaurant-reputation-management/"
-    },
-    {
-      "title": "Best Ethical Review Generation Software Options in 2026",
-      "url": "https://www.chatmeter.com/resource/blog/best-review-generation-software/"
-    },
-    {
-      "title": "Synup vs. Yext vs. Chatmeter: The Best Listings Solution in 2026",
-      "url": "https://www.chatmeter.com/resource/blog/synup-vs-yext-vs-chatmeter/"
-    },
-    {
-      "title": "Chatmeter Joins Alchemer to Create a Complete Picture of Customer Feedback",
-      "url": "https://www.chatmeter.com/resource/blog/chatmeter-joins-alchemer-to-create-a-complete-picture-of-customer-feedback/"
-    },
-    {
-      "title": "10 Best Local SEO Tools You Should Use to Grow Your Business",
-      "url": "https://www.chatmeter.com/resource/blog/best-local-seo-tools/"
-    },
-    {
-      "title": "9 Top SOCi Competitors to Switch to in 2026",
-      "url": "https://www.chatmeter.com/resource/blog/soci-competitors/"
-    }
-  ],
   "repo": "chatmeter",
   "feeds": [
+    {
+      "source": "https://www.chatmeter.com/category/blog/feed/",
+      "feed_url": "https://www.chatmeter.com/category/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
     {
       "source": "https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API",
       "error": "HTTPError"
     }
   ],
-  "post_count": 0
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 4
 }
