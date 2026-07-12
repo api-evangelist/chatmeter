@@ -33,6 +33,8 @@ apis:
       - type: Authentication
         url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
 common:
+  - type: DomainSecurity
+    url: security/chatmeter-domain-security.yml
   - type: Website
     url: https://www.chatmeter.com
   - type: Documentation
