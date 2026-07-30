@@ -1,7 +1,19 @@
 aid: chatmeter
 name: Chatmeter
 description: Chatmeter is an AI-powered multi-location intelligence platform offering a REST API for managing business listings, monitoring and responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Paid
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/chatmeter.png
 url: https://raw.githubusercontent.com/api-evangelist/chatmeter/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
