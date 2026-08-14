@@ -16,7 +16,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/chatmeter.png
 url: https://raw.githubusercontent.com/api-evangelist/chatmeter/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 type: Index
 tags:
@@ -32,7 +32,14 @@ apis:
     description: REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring, surveys, and user administration. Uses JSON Web Token (JWT) authentication.
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
-    baseURL: https://newapi.chatmeter.com
+    baseURL: https://live.chatmeter.com/v5
+    baseURL_note: >-
+      Corrected 2026-08-13. The previously recorded base, https://newapi.chatmeter.com, no longer
+      resolves in DNS (NXDOMAIN) — it is the host named in Chatmeter's public references and in the
+      README of the third-party Ruby client, and it was retired with no public notice. The live API
+      answers on https://live.chatmeter.com/v5, verified by unauthenticated probe: POST /v5/login with
+      an empty body returns HTTP 400 with the Chatmeter error envelope naming the required username and
+      password fields, and GET /v5/locations returns HTTP 401.
     tags:
       - Reputation Management
       - Listings
@@ -43,7 +50,13 @@ apis:
       - type: Documentation
         url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
       - type: Authentication
-        url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+        url: authentication/chatmeter-authentication.yml
+      - type: Conventions
+        url: conventions/chatmeter-conventions.yml
+      - type: ErrorCatalog
+        url: errors/chatmeter-problem-types.yml
+      - type: DataModel
+        url: data-model/chatmeter-data-model.yml
 common:
   - type: DomainSecurity
     url: security/chatmeter-domain-security.yml
@@ -65,6 +78,43 @@ common:
     url: rate-limits/chatmeter-rate-limits.yml
   - type: FinOps
     url: finops/chatmeter-finops.yml
+  - type: Authentication
+    url: authentication/chatmeter-authentication.yml
+  - type: Conventions
+    url: conventions/chatmeter-conventions.yml
+  - type: ErrorCatalog
+    url: errors/chatmeter-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/chatmeter-lifecycle.yml
+  - type: Conformance
+    url: conformance/chatmeter-conformance.yml
+  - type: Compliance
+    url: conformance/chatmeter-conformance.yml
+  - type: DataModel
+    url: data-model/chatmeter-data-model.yml
+  - type: Packages
+    url: packages/chatmeter-packages.yml
+  - type: MCPServer
+    url: mcp/chatmeter-mcp.yml
+  - type: LLMsTxt
+    url: llms/chatmeter-llms.txt
+  - type: GitHubOrganization
+    url: https://github.com/chatmeter
+  - type: HelpCenter
+    url: https://help.alchemer.com/help/chatmeter
+  - type: Support
+    url: https://www.chatmeter.com/contactsupport/
+  - type: TermsOfService
+    url: https://www.chatmeter.com/terms-of-service/
+  - type: PrivacyPolicy
+    url: https://www.chatmeter.com/privacy-policy/
+  - type: Login
+    url: https://live.chatmeter.com/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 10
+  pass: local-v1
