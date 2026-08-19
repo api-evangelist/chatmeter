@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: probed
+source: Direct HTTP probes on 2026-08-13
+name: Chatmeter .well-known probe
+result: none
+summary: >-
+  No /.well-known/ document is served on any Chatmeter host. www.chatmeter.com answers 404 for every
+  path (a mix of an nginx 404 and the WordPress 404 template). live.chatmeter.com — the host that
+  actually serves the v5 API — answers 302 for every path, redirecting to the static single-page
+  application bucket at assets.chatmeter.com, which then returns an S3 NoSuchKey document. That 302 is a
+  catch-all fall-through, not a served document. newapi.chatmeter.com, the API host named in Chatmeter's
+  public references, no longer resolves in DNS. No `WellKnown` or `SecurityTxt` pointer is wired in
+  apis.yml, because nothing here is a document the provider serves.
+
+hosts:
+  - host: www.chatmeter.com
+    paths:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /llms.txt
+        status: 404
+        file: null
+
+  - host: live.chatmeter.com
+    note: >-
+      Serves the Chatmeter v5 API. Every /.well-known/ path returns 302 to
+      https://assets.chatmeter.com/live/<path>; following the redirect yields HTTP 404 with an S3
+      NoSuchKey XML body. Recorded as a miss.
+    paths:
+      - path: /.well-known/security.txt
+        status: 302
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 302
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 302
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 302
+        file: null
+      - path: /.well-known/api-catalog
+        status: 302
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 302
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 302
+        file: null
+      - path: /.well-known/agent.json
+        status: 302
+        file: null
+      - path: /llms.txt
+        status: 302
+        file: null
+
+  - host: newapi.chatmeter.com
+    note: >-
+      NXDOMAIN as of 2026-08-13. This is the host recorded as the API base in Chatmeter's public
+      references and in the third-party Ruby client's README; it no longer resolves.
+    paths:
+      - path: /.well-known/security.txt
+        status: null
+        file: null
+      - path: /.well-known/agent-card.json
+        status: null
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: null
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: null
+        file: null
+
+  - host: apidocs.chatmeter.com
+    note: >-
+      Resolves to CloudFront and answers 401 with `www-authenticate: Basic` on every path, including the
+      root. Not probeable for /.well-known documents.
+    paths:
+      - path: /
+        status: 401
+        file: null

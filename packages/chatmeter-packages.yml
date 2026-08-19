@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Registry metadata endpoints queried directly on 2026-08-13 — registry.npmjs.org, rubygems.org/api/v1,
+  pypi.org/pypi, packagist.org, crates.io/api/v1, azuresearch-usnc.nuget.org — plus the GitHub REST API
+  for the chatmeter organization and a code search across GitHub.
+name: Chatmeter Client Packages
+api: Chatmeter API
+
+summary: >-
+  Chatmeter publishes NO first-party client library for its API in any language, on any registry. The
+  only API client that exists is a third-party Ruby gem written by the agency G5, last released in 2019
+  and last committed in 2021 — six years and five years stale respectively, and it targets the
+  newapi.chatmeter.com host that no longer resolves. No `SDKs` pointer is wired in apis.yml because
+  there is no official SDK to point at.
+
+official_sdk_count: 0
+package_count: 2
+
+packages:
+  - name: chatmeter
+    registry: rubygems
+    language: ruby
+    url: https://rubygems.org/gems/chatmeter
+    repository: https://github.com/G5/chatmeter
+    version: 1.3.0
+    published: '2019-05-01'
+    license: MIT
+    downloads_total: 10351
+    downloads_this_version: 3594
+    official: false
+    maintainer: G5 (agency) — Levi Brown, Kyle Rose, Pablo Rodriguez, Kirk Stennett
+    description: A ruby wrapper for the chatmeter API.
+    status: abandoned
+    decay_evidence: >-
+      Last release 2019-05-01; last commit to github.com/G5/chatmeter 2021-08-12. The repository's
+      version.rb declares 1.4.0, a version that was never published to RubyGems, so even the source tree
+      is ahead of the last shipped gem. Its README names
+      http://newapi.chatmeter.com/ as the API root, and its default host constant is
+      live.chatmeter.com with api_version 'v5' — the newapi host has since gone NXDOMAIN, so any
+      consumer following the README rather than the constant is broken.
+    covers:
+      - accounts
+      - campaigns (reviewBuilder)
+      - competitors
+      - email templates (reviewBuilder)
+      - forms (reviewBuilder)
+      - groups
+      - listings
+      - locations
+      - reviews
+      - single sign-on
+      - user/group access
+      - user/location access
+      - user management
+
+  - name: '@chatmeter/astro-cloudflare'
+    registry: npm
+    language: javascript
+    url: https://www.npmjs.com/package/@chatmeter/astro-cloudflare
+    repository: https://github.com/adrianlyjak/withastro-adapters
+    version: 10.3.3
+    published: '2024-04-28'
+    official: false
+    maintainer: adrianlyjak (individual npm account)
+    description: 'temporary fork of @astrojs/cloudflare'
+    is_api_client: false
+    note: >-
+      Published under the @chatmeter npm scope, which implies Chatmeter controls the scope, but the sole
+      maintainer is an individual account and the package is a fork of the Astro Cloudflare adapter — a
+      build-tooling dependency for Chatmeter's own website, not a client for the Chatmeter API. It is
+      recorded for completeness and deliberately not counted as an SDK.
+
+registries_checked:
+  - registry: npm
+    query: 'https://registry.npmjs.org/-/v1/search?text=chatmeter  and  text=scope:chatmeter'
+    result: '1 package (@chatmeter/astro-cloudflare); scope search returned 0'
+  - registry: PyPI
+    query: https://pypi.org/pypi/chatmeter/json
+    result: 404
+  - registry: RubyGems
+    query: https://rubygems.org/api/v1/gems/chatmeter.json
+    result: '1 package (third-party, v1.3.0, 2019-05-01)'
+  - registry: Packagist
+    query: 'https://packagist.org/search.json?q=chatmeter'
+    result: 0 matching packages
+  - registry: crates.io
+    query: 'https://crates.io/api/v1/crates?q=chatmeter'
+    result: 0 crates
+  - registry: NuGet
+    query: 'https://azuresearch-usnc.nuget.org/query?q=chatmeter'
+    result: 0 packages
+  - registry: Maven Central
+    query: search.maven.org g/a chatmeter
+    result: no first-party artifact found
+  - registry: pkg.go.dev
+    query: chatmeter
+    result: no first-party module found
+
+github:
+  organization: https://github.com/chatmeter
+  public_repos: 4
+  repos:
+    - name: chatmeter/logstash-tcp-docker
+      pushed: '2015-09-03'
+      note: Docker image with logstash + TCP/TLS gelf support. Infrastructure, not a client.
+    - name: chatmeter/cat-egory
+      pushed: '2019-04-09'
+      note: Front-end developer interview seed project.
+    - name: chatmeter/robocat
+      pushed: '2023-01-07'
+      note: JavaScript interview test.
+    - name: chatmeter/titlebot
+      pushed: '2021-12-03'
+      note: Interview challenge.
+  finding: >-
+    The Chatmeter GitHub organization exists and is public but contains only hiring exercises and one
+    2015 infrastructure image. No SDK, no CLI, no specification, and no sample code.
+
+cdn_distributions: []
+cli: null

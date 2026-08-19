@@ -1,11 +1,46 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live unauthenticated probes of https://live.chatmeter.com/v5 on 2026-08-13, plus a search of every
+  public Chatmeter surface (www.chatmeter.com sitemap, help.alchemer.com/help/chatmeter). The API
+  documentation itself is credential-gated at support.chatmeter.com (401 -> Salesforce community login)
+  and apidocs.chatmeter.com (401, HTTP Basic), so no published limit could be read.
 name: Chatmeter Rate Limits
-description: Chatmeter does not publicly document specific rate limits for its REST API. Rate limit details are disclosed as part of the enterprise onboarding process and may vary by plan and negotiated contract terms.
+description: >-
+  Chatmeter does not publicly document rate limits for its REST API, and the live API emits no
+  rate-limit response headers of any kind. Quotas and throttles, if any, are communicated during
+  enterprise onboarding and may vary by plan and negotiated contract.
 url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
 public: false
-notes: >
-  No public rate limit documentation is available for the Chatmeter API.
-  The API uses JSON Web Token (JWT) authentication; quota and throttle thresholds
-  are communicated through the Customer Success Manager during onboarding.
-  Customers should contact support or their CSM for specific rate limit details.
+limit_count: 0
 limits: []
+
+response_headers:
+  observed: none
+  probed_for:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - RateLimit-Limit
+    - RateLimit-Remaining
+    - RateLimit-Reset
+    - RateLimit-Policy
+    - Retry-After
+  finding: >-
+    None of these headers appears on any observed response from live.chatmeter.com/v5 — not on the 400
+    from POST /v5/login, not on the 401 from GET /v5/locations, and not on a 200. The only operational
+    header the API emits is `trace-id`.
+  exhaustion_status_code: unknown
+  note: >-
+    No 429 was produced or observed. An agent integrating with this API has no runtime backoff signal
+    and no documented number to plan against; it must implement blind exponential backoff.
+
+notes: >-
+  No public rate limit documentation is available for the Chatmeter API. Authentication is a
+  username/password token exchange (POST /v5/login) rather than a self-serve API key, so any quota is
+  attached to a tenant contract rather than to a published plan. Customers should contact support or
+  their Customer Success Manager for specific rate limit details.
 contact: https://www.chatmeter.com/contact/
+see_also:
+  - conventions/chatmeter-conventions.yml
+  - plans/chatmeter-plans-pricing.yml

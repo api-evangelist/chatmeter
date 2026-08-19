@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live probes of live.chatmeter.com, www.chatmeter.com, support.chatmeter.com, apidocs.chatmeter.com and
+  help.alchemer.com on 2026-08-13, plus the www.chatmeter.com Yoast page sitemap.
+name: Chatmeter API Lifecycle
+api: Chatmeter API
+
+versioning:
+  scheme: path-prefix major version
+  current: v5
+  base: https://live.chatmeter.com/v5
+  policy_published: false
+  policy_note: >-
+    No public versioning policy, support window, or version-support matrix was found. The major version
+    is inferred from the mounted path and from the third-party Ruby wrapper, which hard-codes
+    api_version 'v5'.
+
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No Sunset or Deprecation header appears on any observed response from live.chatmeter.com/v5, and no
+    deprecation, retirement, or end-of-life page exists on www.chatmeter.com (the full Yoast page
+    sitemap was walked — 46 pages, none developer- or API-facing).
+  unannounced_change:
+    what: API host migration
+    from: newapi.chatmeter.com
+    to: live.chatmeter.com
+    detected: '2026-08-13'
+    detail: >-
+      newapi.chatmeter.com — the host Chatmeter's public documentation references and the host named in
+      the README of the long-standing third-party Ruby client — no longer resolves in DNS (NXDOMAIN).
+      The live API answers on live.chatmeter.com under the same /v5 prefix. No public notice, changelog
+      entry, redirect, or Sunset header marks the move; the old host simply stopped existing, which
+      breaks every integration that pinned it.
+
+status_page:
+  present: false
+  probed:
+    - url: https://status.chatmeter.com
+      status: NXDOMAIN
+    - url: https://www.chatmeter.com/status/
+      status: 404
+  note: No status page, uptime history, or incident feed is published for the Chatmeter API.
+
+changelog:
+  present: false
+  probed:
+    - url: https://www.chatmeter.com/changelog/
+      status: 404
+    - url: https://www.chatmeter.com/release-notes/
+      status: 404
+  note: >-
+    No dated API changelog or release-notes surface is public. Product release notes, if they exist, sit
+    inside the credential-gated support site.
+
+sla:
+  published: false
+  note: >-
+    No public SLA or uptime commitment. Terms of service are published at
+    https://www.chatmeter.com/terms-of-service/ but no availability target was located there.
+
+support:
+  channels:
+    - type: form
+      url: https://www.chatmeter.com/contactsupport/
+      status: 200
+      note: Redirects to an Alchemer-hosted support intake survey.
+    - type: help-center
+      url: https://help.alchemer.com/help/chatmeter
+      status: 200
+      note: >-
+        Public product help centre. Chatmeter joined Alchemer in September 2025, and the product
+        documentation now lives on the Alchemer help host. It carries no API documentation.
+    - type: gated-docs
+      url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+      status: 401
+      note: The API documentation category redirects to a Salesforce Experience Cloud community login.
+
+corporate:
+  acquisition:
+    acquirer: Alchemer
+    announced: '2025-09-24'
+    source: blogs/2025-09-24-chatmeter-joins-alchemer-to-create-a-complete-picture-of.md
+    api_impact: >-
+      The chatmeter.com domain, the live.chatmeter.com API host and the /v5 surface all remain in place
+      as of 2026-08-13. Product help has migrated to help.alchemer.com/help/chatmeter; API documentation
+      has not, and remains on the credential-gated Chatmeter hosts.
+
+deprecated_operations: []
+deprecated_operations_note: >-
+  Cannot be derived — Chatmeter publishes no OpenAPI, so there is no contract in which a `deprecated`
+  flag could be read.
+
+application_currency:
+  host: live.chatmeter.com
+  artifact: index.html
+  last_modified: '2026-08-11'
+  note: >-
+    The single-page application bundle was rebuilt two days before this probe, so the platform is
+    actively maintained even though the API surface is undocumented publicly.

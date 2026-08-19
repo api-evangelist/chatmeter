@@ -1,0 +1,74 @@
+# Chatmeter
+
+> Chatmeter is an AI-powered multi-location intelligence platform for reputation management, local
+> listings, review response, social monitoring, surveys, and competitive benchmarking. It exposes a
+> REST API — `https://live.chatmeter.com/v5` — for programmatic access to locations, listings, reviews,
+> users, groups, and review-generation campaigns. Chatmeter joined Alchemer in September 2025.
+
+## Status of the machine-readable surface
+
+Chatmeter publishes **no OpenAPI, AsyncAPI, GraphQL SDL, Postman collection, or JSON Schema**, and no
+MCP server or A2A agent card. Both of its API documentation hosts are credential-gated:
+`support.chatmeter.com` redirects to a Salesforce community login and `apidocs.chatmeter.com` answers
+HTTP Basic. The API itself is live and callable, but a token requires an existing paid tenant — there is
+no self-serve signup. Everything below was established by live probe on 2026-08-13, not read from a
+contract.
+
+## API
+
+- [Chatmeter API base](https://live.chatmeter.com/v5): REST/JSON. Version carried in the path (`/v5`).
+- [Token endpoint](https://live.chatmeter.com/v5/login): `POST` with `{"username": ..., "password": ...}`;
+  the returned token goes in the `Authorization` header. No OAuth, no OIDC, no API-key page, no scopes.
+- Confirmed-mounted routes (401/400 to an anonymous caller): `/v5/locations`,
+  `/v5/locations/externalId/{externalId}`, `/v5/reviews`, `/v5/reviews/{id}/responses`, `/v5/listings`,
+  `/v5/accounts`, `/v5/groups`, `/v5/groups/{id}/locations`, `/v5/users`, `/v5/user/{id}`,
+  `/v5/users/{id}/groups`, `/v5/users/{id}/locations`, `/v5/reviewBuilder/campaign`,
+  `/v5/reviewBuilder/form/get/{id}`, `/v5/reviewBuilder/emailTemplate/{id}`, `/v5/reports`,
+  `/v5/dashboard/reviewReport`, `/v5/singlesignon/generateLoginToken`.
+- Errors use a vendor envelope `{"error": {"code": ..., "message": ...}}` — not RFC 9457. `error.message`
+  is polymorphic: a string on some failures, a JSON-path-keyed object on body validation failures.
+- Every response carries a `trace-id` header. There are no rate-limit headers of any kind.
+- Unmounted paths under `/v5` return **302** to the static application bucket, not 404. Treat a 302 as
+  "route does not exist".
+
+## Documentation
+
+- [Chatmeter API docs](https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API): HTTP 401 — Salesforce community login required.
+- [API reference host](https://apidocs.chatmeter.com/): HTTP 401 — HTTP Basic auth required.
+- [Chatmeter product help (public)](https://help.alchemer.com/help/chatmeter): product help centre on the
+  Alchemer host. Contains no API documentation.
+
+## Company
+
+- [Website](https://www.chatmeter.com)
+- [Platform overview](https://www.chatmeter.com/solutions/platform/) — states the platform is "SOC2 compliant"; no trust centre or report is published.
+- [Pricing](https://www.chatmeter.com/pricing/) — no published tiers; priced per location, annual contract, quote by sales form.
+- [Blog](https://www.chatmeter.com/category/blog/)
+- [Newsroom](https://www.chatmeter.com/newsroom/)
+- [Terms of Service](https://www.chatmeter.com/terms-of-service/)
+- [Privacy Policy](https://www.chatmeter.com/privacy-policy/)
+- [Support](https://www.chatmeter.com/contactsupport/)
+- [GitHub organization](https://github.com/chatmeter) — 4 public repositories, all hiring exercises or 2015 infrastructure. No SDK, no spec.
+
+## Client libraries
+
+- No first-party SDK exists in any language, on any registry.
+- [chatmeter (RubyGems)](https://rubygems.org/gems/chatmeter) — third-party, by the agency G5. v1.3.0,
+  published 2019-05-01, last commit 2021-08-12. Its README points at `newapi.chatmeter.com`, which no
+  longer resolves.
+
+## Known gaps for agents
+
+- No contract, so no tool input schemas can be generated without an authenticated tenant.
+- 401 responses are empty — no body, no error code, no `WWW-Authenticate` — so an agent cannot tell an
+  expired token from an unauthorized one.
+- No idempotency key on any write, and `POST /v5/reviews/{id}/responses` publishes text publicly under
+  the brand's name on third-party platforms. Keep a human in the loop on that operation.
+- No webhooks or event surface; changes must be polled.
+- No status page, no changelog, no deprecation policy. The previous API host `newapi.chatmeter.com` was
+  retired to NXDOMAIN with no public notice.
+
+## Optional
+
+- [API Evangelist profile](https://apis.io/provider/chatmeter)
+- [Repository of record](https://github.com/api-evangelist/chatmeter)

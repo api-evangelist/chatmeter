@@ -1,0 +1,154 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the URL structure of the Chatmeter v5 routes confirmed mounted by live unauthenticated
+  probe on 2026-08-13 (401/400 = mounted, 302 = not mounted). Chatmeter publishes no OpenAPI, so there
+  are no $ref links or schemas to read. Every relationship below is inferred from path nesting alone and
+  carries an explicit confidence; NO field names, types, or id formats are asserted, because none are
+  public.
+name: Chatmeter Data Model
+api: Chatmeter API
+base_url: https://live.chatmeter.com/v5
+confidence: low-to-medium
+caveat: >-
+  This is a route-shape sketch, not a schema. It is safe to use for orientation and for planning an
+  integration; it is not safe to use for code generation. The authoritative object reference sits behind
+  Chatmeter's credential-gated documentation.
+
+entities:
+  - name: Account
+    collection: /v5/accounts
+    item: /v5/accounts/{accountId}
+    probe_status: 401
+    description: The top-level tenant. Also addressable per user via /v5/accounts/forUser/{userId}.
+
+  - name: Location
+    collection: /v5/locations
+    item: /v5/locations/{locationId}
+    alternate_key: /v5/locations/externalId/{externalId}
+    probe_status: 401
+    description: >-
+      A physical business location. The central entity of the platform — pricing is per location, and
+      listings, reviews, and access grants all hang off it. Supports soft delete plus
+      PUT /v5/locations/restore.
+
+  - name: Group
+    collection: /v5/groups
+    item: /v5/groups/{groupId}
+    probe_status: 401
+    description: A named set of locations used to organise a multi-location brand (region, brand, franchisee).
+
+  - name: User
+    collection: /v5/users
+    item: /v5/user/{userId}
+    probe_status: 401
+    description: >-
+      A platform user. Note the inconsistent pluralisation — the collection is /v5/users but the item is
+      /v5/user/{userId}, which is a real convention wart a client must handle.
+
+  - name: Review
+    collection: /v5/reviews
+    item: /v5/reviews/{reviewId}
+    probe_status: 401
+    description: A review harvested from a third-party source platform (Google, Yelp, Facebook and others).
+
+  - name: ReviewResponse
+    collection: /v5/reviews/{reviewId}/responses
+    probe_status: 401
+    description: A brand response published back to the source platform against a review.
+
+  - name: Listing
+    collection: /v5/listings
+    probe_status: 401
+    description: A business listing published to a directory or search platform for a location.
+
+  - name: Competitor
+    collection: /v5/competitors
+    probe_status: 302
+    probe_note: >-
+      GET /v5/competitors is NOT mounted — it 302s to the static bucket. The third-party Ruby client
+      calls it with POST only, so the resource is presumed POST-only. Recorded with low confidence.
+
+  - name: ReviewCampaign
+    collection: /v5/reviewBuilder/campaign
+    probe_status: 401
+    description: A review-generation campaign in the reviewBuilder module.
+
+  - name: ReviewForm
+    item: /v5/reviewBuilder/form/get/{formId}
+    probe_status: 401
+    description: The form a customer fills in as part of a review-generation campaign.
+
+  - name: EmailTemplate
+    item: /v5/reviewBuilder/emailTemplate/{templateId}
+    probe_status: 401
+    description: The email template used to solicit a review in a campaign.
+
+  - name: Report
+    collection: /v5/reports
+    probe_status: 401
+    description: Saved or generated reports. Also /v5/dashboard/reviewReport (probe_status 400).
+
+relationships:
+  - from: Account
+    to: Location
+    type: has_many
+    via: account scope
+    confidence: medium
+    evidence: Locations are listed per account; /v5/accounts/forUser/{userId} scopes accounts to a user.
+  - from: Group
+    to: Location
+    type: has_many
+    via: /v5/groups/{groupId}/locations
+    confidence: high
+    evidence: Nested collection route; membership is added by POST and removed by DELETE with locationIds.
+  - from: User
+    to: Group
+    type: has_many
+    via: /v5/users/{userId}/groups
+    confidence: high
+    evidence: Nested access-grant route with POST and DELETE.
+  - from: User
+    to: Location
+    type: has_many
+    via: /v5/users/{userId}/locations
+    confidence: high
+    evidence: Nested access-grant route; deletion uses POST /v5/users/{userId}/locations/delete.
+  - from: Location
+    to: Listing
+    type: has_many
+    via: location scope on /v5/listings
+    confidence: low
+    evidence: Inferred from the product model, not from a nested route.
+  - from: Location
+    to: Review
+    type: has_many
+    via: location scope on /v5/reviews
+    confidence: low
+    evidence: Inferred from the product model, not from a nested route.
+  - from: Review
+    to: ReviewResponse
+    type: has_many
+    via: /v5/reviews/{reviewId}/responses
+    confidence: high
+    evidence: Nested sub-collection route.
+  - from: ReviewCampaign
+    to: ReviewForm
+    type: has_one
+    via: reviewBuilder module
+    confidence: low
+  - from: ReviewCampaign
+    to: EmailTemplate
+    type: has_one
+    via: reviewBuilder module
+    confidence: low
+
+id_conventions:
+  documented: false
+  note: >-
+    No id prefixes, formats, or domains are published, and none could be observed without credentials.
+
+render: null
+see_also:
+  - conventions/chatmeter-conventions.yml
+  - mcp/chatmeter-mcp.yml

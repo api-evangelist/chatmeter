@@ -48,8 +48,14 @@ Chatmeter is an AI-powered multi-location intelligence platform that helps busin
 
 The Chatmeter REST API enables programmatic access to all platform data and administrative functions, including location listing management, review retrieval and response, social monitoring, survey management, and user administration. Authentication uses JSON Web Tokens (JWT). API access is included in the Premium tier.
 
-- API Reference: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
-- Base URL: https://newapi.chatmeter.com
+- API Reference: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API (HTTP 401 — redirects to a Salesforce community login)
+- Base URL: https://live.chatmeter.com/v5
+
+Chatmeter publishes no OpenAPI, AsyncAPI, GraphQL SDL, or Postman collection, and both of its API
+documentation hosts are credential-gated (`support.chatmeter.com` 401 to a Salesforce community login,
+`apidocs.chatmeter.com` 401 with HTTP Basic). The API surface recorded in this repository was established
+by live unauthenticated probe on 2026-08-13, not read from a contract. The base URL previously recorded
+here, `https://newapi.chatmeter.com`, no longer resolves in DNS and was retired with no public notice.
 
 ## Links
 

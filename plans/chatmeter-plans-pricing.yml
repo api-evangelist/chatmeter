@@ -1,25 +1,44 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.chatmeter.com/pricing/
 name: Chatmeter Plans and Pricing
-description: Chatmeter uses a location-based pricing model with no publicly listed tiers. Pricing is customized based on the number of locations, industry vertical, and selected feature modules. All quotes require contacting sales.
+description: >-
+  Chatmeter uses a location-based pricing model with no publicly listed tiers. Pricing is customized
+  based on the number of locations, industry vertical, and selected feature modules. All quotes require
+  contacting sales.
 url: https://www.chatmeter.com/pricing/
 model: location-based
 public: false
-notes: >
-  Chatmeter does not publish fixed plan tiers or per-location costs on its website.
-  Prospects fill out a form indicating number of locations (1-4, 5-14, 15-49,
-  50-149, 150-499, 500+, or Agency/Partner) and industry, then receive a custom
-  quote. Annual contracts only; no monthly billing. Early termination fee reported
-  at ~$4,000. Estimated annual range from third-party transaction data: $16,000-$42,000.
-  API access is included in the Premium tier per third-party sources.
+plan_count: 0
+plan_count_note: >-
+  plan_count is 0 because Chatmeter publishes NO priced tier on any public page. The pricing page
+  (fetched 2026-08-13, HTTP 200) carries no plan names, no prices, no billing periods and no quotas —
+  only the statements "It depends on what you need", "price by location, with unlimited users", and a
+  lead form asking for location count and industry. The three tier names listed below are recorded from
+  third-party sources for orientation and are explicitly NOT provider-published; they are not counted.
+notes: >-
+  Chatmeter does not publish fixed plan tiers or per-location costs on its website. Prospects fill out a
+  form indicating number of locations (1-4, 5-14, 15-49, 50-149, 150-499, 500+, or Agency/Partner) and
+  industry, then receive a custom quote. Annual contracts only; no monthly billing. Early termination fee
+  reported at ~$4,000. Estimated annual range from third-party transaction data: $16,000-$42,000.
+  API access is included in the Premium tier per third-party sources. There is no self-serve signup and
+  therefore no path to an API credential without a sales conversation.
 plans:
   - name: Basic
     description: Entry-level plan with core reputation management features
     public: false
+    provider_published: false
+    source: third-party
   - name: Plus
     description: Mid-tier plan with additional capabilities
     public: false
+    provider_published: false
+    source: third-party
   - name: Premium
     description: Full-featured plan including API access, multi-location management, and review response automation
     public: false
+    provider_published: false
+    source: third-party
     features:
       - Listings Management
       - Review Management
@@ -30,4 +49,10 @@ plans:
       - Analytics and Insights
       - Pulse AI
       - API Access
+free_tier: false
+trial: false
+self_serve: false
 contact: https://www.chatmeter.com/pricing/
+see_also:
+  - finops/chatmeter-finops.yml
+  - rate-limits/chatmeter-rate-limits.yml

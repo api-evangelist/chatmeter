@@ -1,0 +1,162 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+name: Chatmeter MCP
+api: Chatmeter API
+source: >-
+  Derived from a live, unauthenticated route-existence probe of https://live.chatmeter.com/v5 on
+  2026-08-13. Chatmeter publishes no OpenAPI, so there is no contract to derive operationIds from; every
+  route below was confirmed mounted by observing HTTP 401/400 (mounted) rather than HTTP 302 (falls
+  through to the static application bucket).
+published_server: null
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+  checked: '2026-08-13'
+
+searched:
+  note: >-
+    No Chatmeter-operated MCP server exists — hosted or local. This file is a CANDIDATE tool shape, not a
+    server Chatmeter runs.
+  probes:
+    - url: https://live.chatmeter.com/mcp
+      status: 302
+      note: Falls through to the static application bucket; not an MCP endpoint.
+    - url: https://live.chatmeter.com/v5/mcp
+      status: 302
+    - url: https://www.chatmeter.com/mcp
+      status: 404
+    - url: https://newapi.chatmeter.com/mcp
+      status: null
+      note: Host does not resolve (NXDOMAIN).
+  registries_checked:
+    - registry: MCP Registry
+      query: 'https://registry.modelcontextprotocol.io/v0/servers?search=chatmeter'
+      result: 0 servers
+    - registry: npm
+      query: 'https://registry.npmjs.org/-/v1/search?text=chatmeter'
+      result: '1 package, an Astro build adapter — no MCP server package'
+    - registry: PyPI
+      query: pypi.org/pypi/chatmeter/json
+      result: 404
+  registry_result: no first-party Chatmeter MCP server, package, or endpoint published anywhere
+
+server:
+  name: chatmeter
+  transport: null
+  url: null
+
+candidate_tools:
+  note: >-
+    A starter tool set over the routes that were confirmed mounted on the live v5 API. Input schemas are
+    NOT included and are not invented — Chatmeter publishes no contract, so the parameters and request
+    bodies of these operations are not public. Any real implementation must introspect them against an
+    authenticated tenant first.
+  tools:
+    - name: list_locations
+      description: List the locations in the account.
+      route: 'GET /v5/locations'
+      probe_status: 401
+      consequence: read
+    - name: get_location_by_external_id
+      description: Look up a location by the caller's own external/reseller identifier.
+      route: 'GET /v5/locations/externalId/{externalId}'
+      probe_status: 401
+      consequence: read
+    - name: list_reviews
+      description: List reviews across the account's locations.
+      route: 'GET /v5/reviews'
+      probe_status: 401
+      consequence: read
+    - name: respond_to_review
+      description: Publish a response to a review on the source platform.
+      route: 'POST /v5/reviews/{reviewId}/responses'
+      probe_status: 401
+      consequence: physical
+      human_in_the_loop: required
+      rationale: >-
+        A review response is published publicly under the brand's name on Google, Yelp or Facebook. It
+        is externally visible, attributable to the business, and not reliably retractable.
+    - name: get_review_report
+      description: Retrieve the dashboard review report.
+      route: 'GET /v5/dashboard/reviewReport'
+      probe_status: 400
+      probe_note: Answers 400 (missing required query parameters) to a bare anonymous GET, confirming it is mounted.
+      consequence: read
+    - name: list_listings
+      description: List the business listings Chatmeter manages across directories.
+      route: 'GET /v5/listings'
+      probe_status: 401
+      consequence: read
+    - name: list_accounts
+      description: List accounts.
+      route: 'GET /v5/accounts'
+      probe_status: 401
+      consequence: read
+    - name: list_groups
+      description: List location groups.
+      route: 'GET /v5/groups'
+      probe_status: 401
+      consequence: read
+    - name: list_users
+      description: List platform users.
+      route: 'GET /v5/users'
+      probe_status: 401
+      consequence: read
+    - name: get_user
+      description: Retrieve one user.
+      route: 'GET /v5/user/{userId}'
+      probe_status: 401
+      consequence: read
+    - name: list_user_group_access
+      description: List the groups a user may access.
+      route: 'GET /v5/users/{userId}/groups'
+      probe_status: 401
+      consequence: read
+    - name: list_user_location_access
+      description: List the locations a user may access.
+      route: 'GET /v5/users/{userId}/locations'
+      probe_status: 401
+      consequence: read
+    - name: list_review_campaigns
+      description: List review-generation campaigns.
+      route: 'GET /v5/reviewBuilder/campaign'
+      probe_status: 401
+      consequence: read
+    - name: get_review_form
+      description: Retrieve a review-generation form.
+      route: 'GET /v5/reviewBuilder/form/get/{formId}'
+      probe_status: 401
+      consequence: read
+    - name: get_email_template
+      description: Retrieve a review-request email template.
+      route: 'GET /v5/reviewBuilder/emailTemplate/{templateId}'
+      probe_status: 401
+      consequence: read
+    - name: list_reports
+      description: List reports.
+      route: 'GET /v5/reports'
+      probe_status: 401
+      consequence: read
+
+blockers_for_a_real_server:
+  - No published contract of any kind. There is no OpenAPI, GraphQL SDL, or Postman collection, so tool
+    input schemas cannot be generated — they would have to be reverse-engineered against a paying tenant.
+  - Both documentation hosts are credential-gated. support.chatmeter.com redirects to a Salesforce
+    community login and apidocs.chatmeter.com answers HTTP Basic, so an agent cannot read the reference.
+  - No self-serve credentials. Authentication is username/password against POST /v5/login for an existing
+    tenant; there is no developer signup, API key page, or OAuth authorization server.
+  - The 401 responses are empty — no body, no error code, no WWW-Authenticate — so an agent cannot
+    distinguish an expired token from an unauthorized tenant.
+  - No rate-limit headers and no documented limits, so an agent has no backoff signal.
+  - No webhooks or event surface, so any server would have to poll for new reviews and listing changes.
+
+see_also:
+  - conventions/chatmeter-conventions.yml
+  - authentication/chatmeter-authentication.yml
+  - data-model/chatmeter-data-model.yml

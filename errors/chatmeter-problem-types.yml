@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live unauthenticated probes of https://live.chatmeter.com/v5 on 2026-08-13. Chatmeter publishes no
+  OpenAPI and its error reference is behind the credential-gated documentation hosts, so every entry
+  below is an error envelope actually returned to an anonymous caller.
+name: Chatmeter API Error Catalog
+api: Chatmeter API
+format: vendor-json
+rfc9457: false
+rfc9457_note: >-
+  Errors are not RFC 9457 Problem Details. The content-type is application/json (never
+  application/problem+json) and the envelope carries no type/title/status/detail/instance members.
+
+envelope:
+  shape: '{"error": {"code": "<STRING_CODE>", "message": <string | object>}}'
+  code_field: error.code
+  message_field: error.message
+  message_polymorphic: true
+  message_note: >-
+    error.message is NOT consistently a string. On validation failures it is an object keyed by the
+    offending JSON path (obj.username, obj.password), each mapping to an array of
+    {"msg": [...], "args": [...]} records. A client that types error.message as a string will break on
+    the most common failure mode the API has.
+  correlation:
+    header: trace-id
+    always_present: true
+    note: >-
+      Every response — 200, 302, 400 and 401 alike — carries a `trace-id` header (32 hex chars). It is
+      the only correlation identifier the API emits and it is NOT echoed in the response body, so a
+      client must capture it from the headers to be able to quote it to support.
+
+problem_types:
+  - code: INVALID_JSON
+    http_status: 400
+    title: Request body failed validation
+    observed_on: 'POST /v5/login'
+    detail: >-
+      Returned when a required member of the JSON request body is missing or malformed. Despite the
+      name, it is a field-level validation error rather than a JSON parse error.
+    message_shape: object keyed by JSON path
+    example: '{"error":{"code":"INVALID_JSON","message":{"obj.password":[{"msg":["error.path.missing"],"args":[]}],"obj.username":[{"msg":["error.path.missing"],"args":[]}]}}}'
+    inner_codes:
+      - error.path.missing
+    remediation: >-
+      Read the keys of error.message to learn which body paths are at fault; each key is the JSON path
+      of the offending member and each inner msg is a Play-framework style validation key.
+    verified: probed
+
+  - code: null
+    http_status: 401
+    title: Unauthenticated
+    observed_on: 'GET /v5/locations, /v5/reviews, /v5/users, /v5/groups, /v5/accounts, /v5/listings, /v5/reports'
+    detail: >-
+      Returned when the Authorization header is absent or the token is not accepted. The response has
+      content-length 0 — no body, no error code, and no WWW-Authenticate challenge.
+    message_shape: none
+    remediation: >-
+      Obtain a token from POST /v5/login and resend with Authorization set. There is no machine-readable
+      distinction between "no token", "expired token" and "token lacks access to this tenant".
+    gap: >-
+      An empty 401 with no WWW-Authenticate is the single largest error-semantics gap on this API: an
+      agent cannot decide between re-authenticating and escalating to a human.
+    verified: probed
+
+  - code: null
+    http_status: 400
+    title: Missing required query parameter
+    observed_on: 'GET /v5/dashboard/reviewReport, GET /v5/singlesignon/generateLoginToken'
+    detail: >-
+      Routes that require query parameters answer 400 to a bare GET. Body was empty on probe, so the
+      envelope for this class could not be captured.
+    verified: probed
+
+  - code: null
+    http_status: 302
+    title: Not an API route (falls through to the static application)
+    observed_on: '/v5/openapi.json, /v5/swagger.json, /v5/health, /v5/keywords, /v5/social, /v5/surveys, /v5/competitors (GET)'
+    detail: >-
+      Paths that are not mounted on the v5 API do not 404. They 302 to
+      https://assets.chatmeter.com/live/<path>, the static single-page-application bucket, which then
+      answers an S3 `NoSuchKey` XML document with HTTP 404.
+    gap: >-
+      This is a soft-404 pattern. A discovery client that follows redirects sees an XML body from a
+      different host and a 404 that is not the API's; a client that does not follow redirects sees a
+      302 where it expected 404. Neither is an API error response.
+    verified: probed
+
+status_code_map:
+  200: success
+  302: path is not an API route — redirect to the static app bucket
+  400: request validation failure (body or query)
+  401: unauthenticated / token not accepted
+
+undocumented:
+  - 403 — no anonymous probe could produce one; authorization failures are presumed to exist given the
+    product's user/group/location permission model, but the code and envelope are unknown.
+  - 404 — no probe produced a 404 from the API itself; unmounted paths 302 instead.
+  - 429 — no rate-limit response was observed and no rate-limit headers are emitted. See
+    rate-limits/chatmeter-rate-limits.yml.
+  - 5xx — not observed.
+
+see_also:
+  - conventions/chatmeter-conventions.yml
+  - authentication/chatmeter-authentication.yml

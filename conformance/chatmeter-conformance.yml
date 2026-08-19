@@ -1,0 +1,154 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live probes of live.chatmeter.com/v5, www.chatmeter.com and the Chatmeter documentation hosts on
+  2026-08-13, plus the compliance claim published on https://www.chatmeter.com/solutions/platform/.
+name: Chatmeter Standards Conformance
+api: Chatmeter API
+
+docs:
+  - https://www.chatmeter.com/solutions/platform/
+  - https://www.chatmeter.com/privacy-policy/
+  - https://www.chatmeter.com/terms-of-service/
+
+standards:
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI or Swagger document is served anywhere. Probed /openapi.json, /openapi.yaml,
+      /swagger.json, /swagger.yaml, /api-docs, /v2/api-docs, /swagger-resources, /spec, /docs and
+      /redoc against live.chatmeter.com (root and /v5), newapi.chatmeter.com and apidocs.chatmeter.com.
+      Every path on live.chatmeter.com returned 302 to the static application bucket;
+      newapi.chatmeter.com does not resolve; apidocs.chatmeter.com returns 401 with
+      `www-authenticate: Basic`.
+
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document and no publicly documented event, webhook, or streaming surface.
+
+  - id: graphql
+    conforms: false
+    evidence: No /graphql route; the path 302s to the static application bucket.
+
+  - id: rest
+    conforms: true
+    evidence: >-
+      JSON over HTTPS with resource-oriented, nested paths (/v5/locations, /v5/reviews/{id}/responses,
+      /v5/users/{id}/groups) and HTTP verbs carrying the operation. Probed live.
+
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are a vendor envelope {"error":{"code":..,"message":..}} served as application/json. No
+      application/problem+json, and no type/title/status/detail members.
+      See errors/chatmeter-problem-types.yml.
+
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 flow. /.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource
+      302 on live.chatmeter.com and 404 on www.chatmeter.com. Authentication is a username/password
+      token exchange at POST /v5/login.
+
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any Chatmeter host.
+
+  - id: jwt-rfc7519
+    conforms: unverified
+    evidence: >-
+      Chatmeter's own product material describes the API token as a JSON Web Token, but issuing one
+      requires tenant credentials, so the token format could not be verified anonymously.
+
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key or equivalent replay header is documented or advertised on any write operation.
+
+  - id: pagination
+    conforms: unverified
+    evidence: >-
+      All collection routes return 401 without credentials, so no pagination envelope or parameter
+      convention could be observed, and none is publicly documented.
+
+  - id: rate-limit-headers
+    conforms: false
+    evidence: >-
+      No RateLimit-*, X-RateLimit-* or Retry-After header appears on any observed response.
+
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header, and no deprecation policy. The previous API host
+      newapi.chatmeter.com was retired to NXDOMAIN with no public notice.
+
+  - id: well-known-uris-rfc8615
+    conforms: false
+    evidence: >-
+      Every /.well-known/ path probed on www.chatmeter.com returned 404 and on live.chatmeter.com
+      returned 302 to the static bucket. See well-known/chatmeter-well-known.yml.
+
+  - id: security-txt-rfc9116
+    conforms: false
+    evidence: /.well-known/security.txt is 404 on www.chatmeter.com and 302 on live.chatmeter.com.
+
+  - id: hsts-rfc6797
+    conforms: true
+    evidence: >-
+      live.chatmeter.com and support.chatmeter.com return
+      strict-transport-security max-age=31536000 / 63072000 with includeSubDomains. www.chatmeter.com
+      does not set HSTS. See security/chatmeter-domain-security.yml.
+
+  - id: tls-1.3
+    conforms: true
+    evidence: TLSv1.3 negotiated on www.chatmeter.com and support.chatmeter.com.
+
+  - id: dnssec
+    conforms: true
+    evidence: chatmeter.com is DNSSEC-signed.
+
+  - id: dmarc
+    conforms: true
+    evidence: 'chatmeter.com publishes DMARC with policy p=quarantine, and SPF.'
+
+  - id: caa
+    conforms: false
+    evidence: No CAA records published for chatmeter.com.
+
+compliance:
+  - id: soc2
+    claimed: true
+    verified: false
+    certification_body: null
+    report_available: false
+    evidence: >-
+      "Rest easy knowing you are leveraging a SOC2 compliant platform supporting unlimited desktop and
+      mobile app users." — https://www.chatmeter.com/solutions/platform/ (fetched 2026-08-13, HTTP 200).
+    caveat: >-
+      This is a self-asserted marketing claim. No trust centre, no SOC 2 Type/period, no auditor named,
+      and no request path for the report was found. Probed trust.chatmeter.com and security.chatmeter.com
+      (both NXDOMAIN) and https://www.chatmeter.com/security/ and /trust/ (both 404).
+
+  - id: gdpr
+    claimed: unstated
+    evidence: >-
+      No explicit GDPR compliance statement was located; a privacy policy is published at
+      https://www.chatmeter.com/privacy-policy/.
+
+  - id: iso-27001
+    claimed: false
+  - id: hipaa
+    claimed: false
+    note: >-
+      Chatmeter markets a healthcare vertical (https://www.chatmeter.com/industries/healthcare/) but
+      publishes no HIPAA or BAA claim on any page walked from its sitemap.
+  - id: pci-dss
+    claimed: false
+  - id: fedramp
+    claimed: false
+
+vulnerability_disclosure:
+  present: false
+  evidence: >-
+    probe-security-programs.py returned vdp=none trust=none on 2026-08-13. No security.txt, no bug
+    bounty programme on HackerOne/Bugcrowd/Intigriti, and no /security or /trust page.

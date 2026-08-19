@@ -1,0 +1,136 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live unauthenticated probes of https://live.chatmeter.com/v5 on 2026-08-13, plus the route shapes
+  exercised by the third-party G5/chatmeter Ruby wrapper (github.com/G5/chatmeter), each of which was
+  re-probed against the live host to confirm it is mounted. Chatmeter publishes no OpenAPI and both of
+  its API documentation hosts are credential-gated, so nothing here is read from a contract.
+name: Chatmeter API Conventions
+api: Chatmeter API
+base_url: https://live.chatmeter.com/v5
+
+media_types:
+  consumes: [application/json]
+  produces: [application/json]
+
+authentication:
+  style: login-token in the Authorization header
+  token_endpoint: 'POST /v5/login  {username, password}'
+  header: Authorization
+  oauth2: false
+  scopes: false
+  detail: authentication/chatmeter-authentication.yml
+
+versioning:
+  style: path-prefix
+  current: v5
+  pattern: 'https://live.chatmeter.com/v{n}/...'
+  media_type_versioning: false
+  header_versioning: false
+  note: >-
+    The major version is carried in the first path segment. No v1-v4 route answers on live.chatmeter.com
+    (they 302 to the static bucket), and no version-negotiation header was observed.
+  detail: lifecycle/chatmeter-lifecycle.yml
+
+host_history:
+  - host: newapi.chatmeter.com
+    state: NXDOMAIN
+    checked: '2026-08-13'
+    note: >-
+      The host named as the API root by Chatmeter's public documentation references and by the
+      third-party Ruby wrapper's README no longer resolves in DNS. The live API is served from
+      live.chatmeter.com. No deprecation notice, Sunset header, or migration guide for that move was
+      found on any public Chatmeter surface.
+  - host: live.chatmeter.com
+    state: live
+    checked: '2026-08-13'
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key or equivalent header is documented or advertised, and no idempotency semantics
+    could be observed anonymously. Write operations (POST /v5/locations, POST /v5/users,
+    POST /v5/reviews/{id}/responses) carry no client-supplied replay key, so a retried write after a
+    timeout is not safe to assume deduplicated.
+
+pagination:
+  style: unknown
+  note: >-
+    Collection routes (/v5/locations, /v5/reviews, /v5/users, /v5/listings) all return 401 to an
+    anonymous caller, so no pagination envelope could be observed and no parameter names could be
+    confirmed. The gated documentation is the only place this is described.
+
+filtering_and_lookup:
+  alternate_key_lookup:
+    pattern: '/v5/locations/externalId/{resellerLocationId}'
+    note: >-
+      The API exposes a by-external-id lookup alongside the by-id lookup, which is the convention a
+      caller uses to reconcile Chatmeter locations against their own system of record.
+  nested_scoping:
+    routes:
+      - '/v5/users/{userId}/groups'
+      - '/v5/users/{userId}/locations'
+      - '/v5/groups/{groupId}/locations'
+    note: Access grants are modelled as nested sub-collections rather than as fields on the parent.
+
+request_tracing:
+  header: trace-id
+  direction: response
+  format: 32 lowercase hex characters
+  always_present: true
+  echoed_in_body: false
+  note: >-
+    Emitted on every response including redirects and errors. It is generated server-side; there is no
+    documented client-supplied request-id header that Chatmeter will honour and echo.
+
+rate_limit_signaling:
+  headers: none
+  note: >-
+    No X-RateLimit-*, RateLimit-*, or Retry-After header appears on any observed response, and no 429
+    was produced. An agent has no runtime backoff signal. See rate-limits/chatmeter-rate-limits.yml.
+
+error_envelope:
+  shape: '{"error": {"code": "<STRING>", "message": <string | object>}}'
+  rfc9457: false
+  caution: >-
+    error.message is polymorphic — a string on some failures, a JSON-path-keyed object on body
+    validation failures.
+  detail: errors/chatmeter-problem-types.yml
+
+soft_404:
+  behaviour: >-
+    Unmounted paths under /v5 return HTTP 302 to https://assets.chatmeter.com/live/<path> rather than
+    404. Following the redirect yields an S3 `NoSuchKey` XML body.
+  consequence: >-
+    Route existence must be probed by looking for 401/400 (mounted) versus 302 (not mounted). A naive
+    discovery client will read the 302 chain as a live resource on a different host.
+
+transport:
+  gateway: istio-envoy
+  cdn: CloudFront (static application only; the v5 API answers from the origin)
+  https_only: true
+  hsts: 'max-age=31536000; includeSubDomains'
+  security_headers:
+    x-content-type-options: nosniff
+    referrer-policy: no-referrer
+    permissions-policy: 'camera=(), microphone=(), geolocation=(), encrypted-media=(), payment=(), speaker=(), usb=()'
+  cache_control: 'no-cache (expires: -1) on API responses'
+  cors:
+    vary: Origin
+    note: The API varies on Origin, indicating per-origin CORS handling, but no permissive
+      Access-Control-Allow-Origin was returned to an anonymous cross-origin-less probe.
+
+expansion_and_sparse_fields:
+  supported: unknown
+  note: Not observable without credentials; not described on any public surface.
+
+metadata_fields:
+  supported: unknown
+
+see_also:
+  - authentication/chatmeter-authentication.yml
+  - errors/chatmeter-problem-types.yml
+  - lifecycle/chatmeter-lifecycle.yml
+  - rate-limits/chatmeter-rate-limits.yml
+  - data-model/chatmeter-data-model.yml
