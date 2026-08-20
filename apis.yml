@@ -24,6 +24,14 @@ tags:
   - Local SEO
   - Listings Management
   - Review Management
+  - Social-Media
+  - Multi-Location
+  - Competitive Intelligence
+tags_raw:
+  - Reputation Management
+  - Local SEO
+  - Listings Management
+  - Review Management
   - Social Media
   - Multi-Location
   - Competitive Intelligence
@@ -41,6 +49,12 @@ apis:
       an empty body returns HTTP 400 with the Chatmeter error envelope naming the required username and
       password fields, and GET /v5/locations returns HTTP 401.
     tags:
+      - Reputation Management
+      - Listings
+      - Reviews
+      - Social-Media
+      - Local SEO
+    tags_raw:
       - Reputation Management
       - Listings
       - Reviews
