@@ -35,7 +35,7 @@ tags:
   - Local SEO
   - Listings Management
   - Review Management
-  - Social-Media
+  - Social Media
   - Multi-Location
   - Competitive Intelligence
 tags_raw:
@@ -46,6 +46,7 @@ tags_raw:
   - Social Media
   - Multi-Location
   - Competitive Intelligence
+  - Social-Media
 apis:
   - name: Chatmeter API
     description: REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring, surveys, and user administration. Uses JSON Web Token (JWT) authentication.
@@ -63,7 +64,7 @@ apis:
       - Reputation Management
       - Listings
       - Reviews
-      - Social-Media
+      - Social Media
       - Local SEO
     tags_raw:
       - Reputation Management
@@ -71,6 +72,7 @@ apis:
       - Reviews
       - Social Media
       - Local SEO
+      - Social-Media
     properties:
       - type: Documentation
         url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
