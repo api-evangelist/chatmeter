@@ -1,6 +1,10 @@
 aid: chatmeter
+
 name: Chatmeter
-description: Chatmeter is an AI-powered multi-location intelligence platform offering a REST API for managing business listings, monitoring and responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.
+
+description: Chatmeter is an AI-powered multi-location intelligence platform offering a REST API for managing business listings, monitoring and
+  responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -12,6 +16,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: paid
   onboarding: unknown
@@ -24,125 +29,165 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/chatmeter.png
+
 url: https://raw.githubusercontent.com/api-evangelist/chatmeter/refs/heads/main/apis.yml
+
 created: '2026-06-13'
+
 modified: '2026-08-13'
+
 specificationVersion: '0.23'
+
 type: Index
+
 tags:
-  - Reputation Management
-  - Local SEO
-  - Listings Management
-  - Review Management
-  - Social Media
-  - Multi-Location
-  - Competitive Intelligence
+- Reputation Management
+- Local SEO
+- Listings Management
+- Review Management
+- Social Media
+- Multi-Location
+- Competitive Intelligence
+
 tags_raw:
-  - Reputation Management
-  - Local SEO
-  - Listings Management
-  - Review Management
-  - Social Media
-  - Multi-Location
-  - Competitive Intelligence
-  - Social-Media
-apis:
-  - name: Chatmeter API
-    description: REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring, surveys, and user administration. Uses JSON Web Token (JWT) authentication.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
-    baseURL: https://live.chatmeter.com/v5
-    baseURL_note: >-
-      Corrected 2026-08-13. The previously recorded base, https://newapi.chatmeter.com, no longer
-      resolves in DNS (NXDOMAIN) — it is the host named in Chatmeter's public references and in the
-      README of the third-party Ruby client, and it was retired with no public notice. The live API
-      answers on https://live.chatmeter.com/v5, verified by unauthenticated probe: POST /v5/login with
-      an empty body returns HTTP 400 with the Chatmeter error envelope naming the required username and
-      password fields, and GET /v5/locations returns HTTP 401.
-    tags:
-      - Reputation Management
-      - Listings
-      - Reviews
-      - Social Media
-      - Local SEO
-    tags_raw:
-      - Reputation Management
-      - Listings
-      - Reviews
-      - Social Media
-      - Local SEO
-      - Social-Media
-    properties:
-      - type: Documentation
-        url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
-      - type: Authentication
-        url: authentication/chatmeter-authentication.yml
-      - type: Conventions
-        url: conventions/chatmeter-conventions.yml
-      - type: ErrorCatalog
-        url: errors/chatmeter-problem-types.yml
-      - type: DataModel
-        url: data-model/chatmeter-data-model.yml
+- Reputation Management
+- Local SEO
+- Listings Management
+- Review Management
+- Social Media
+- Multi-Location
+- Competitive Intelligence
+- Social-Media
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
-  - type: DomainSecurity
-    url: security/chatmeter-domain-security.yml
-  - type: Website
-    url: https://www.chatmeter.com
+- type: GettingStarted
+  url: https://help.alchemer.com/help/getting-started
+- type: JSONLD
+  url: json-ld/chatmeter-context.jsonld
+- type: Deprecation
+  url: lifecycle/chatmeter-lifecycle.yml
+- type: Hosts
+  url: hosts/chatmeter-hosts.yml
+- type: Vendors
+  url: vendors/chatmeter-vendors.yml
+- type: Newsroom
+  url: https://www.chatmeter.com/newsroom/
+- type: Leadership
+  url: https://www.chatmeter.com/about-us/leadership/
+- type: DomainSecurity
+  url: security/chatmeter-domain-security.yml
+- type: Website
+  url: https://www.chatmeter.com
+- type: Documentation
+  url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+- type: Blog
+  url: https://www.chatmeter.com/category/blog/
+- type: Pricing
+  url: https://www.chatmeter.com/pricing/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/chatmeter
+- type: X
+  url: https://x.com/chatmeter
+- type: Plans
+  url: plans/chatmeter-plans-pricing.yml
+- type: FinOps
+  url: finops/chatmeter-finops.yml
+- type: Conventions
+  url: conventions/chatmeter-conventions.yml
+- type: Lifecycle
+  url: lifecycle/chatmeter-lifecycle.yml
+- type: Conformance
+  url: conformance/chatmeter-conformance.yml
+- type: Compliance
+  url: conformance/chatmeter-conformance.yml
+- type: DataModel
+  url: data-model/chatmeter-data-model.yml
+- type: X-MCPServerCandidate
+  url: mcp/chatmeter-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
+- type: GitHubOrganization
+  url: https://github.com/chatmeter
+- type: HelpCenter
+  url: https://help.alchemer.com/help/chatmeter
+- type: Support
+  url: https://www.chatmeter.com/contactsupport/
+- type: TermsOfService
+  url: https://www.chatmeter.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.chatmeter.com/privacy-policy/
+- type: Login
+  url: https://live.chatmeter.com/
+
+apis:
+- name: Chatmeter API
+  description: REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring,
+    surveys, and user administration. Uses JSON Web Token (JWT) authentication.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+  baseURL: https://live.chatmeter.com/v5
+  baseURL_note: 'Corrected 2026-08-13. The previously recorded base, https://newapi.chatmeter.com, no longer resolves in DNS (NXDOMAIN) — it is
+    the host named in Chatmeter''s public references and in the README of the third-party Ruby client, and it was retired with no public notice.
+    The live API answers on https://live.chatmeter.com/v5, verified by unauthenticated probe: POST /v5/login with an empty body returns HTTP 400
+    with the Chatmeter error envelope naming the required username and password fields, and GET /v5/locations returns HTTP 401.'
+  tags:
+  - Reputation Management
+  - Listings
+  - Reviews
+  - Social Media
+  - Local SEO
+  tags_raw:
+  - Reputation Management
+  - Listings
+  - Reviews
+  - Social Media
+  - Local SEO
+  - Social-Media
+  properties:
   - type: Documentation
     url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
-  - type: Blog
-    url: https://www.chatmeter.com/category/blog/
-  - type: Pricing
-    url: https://www.chatmeter.com/pricing/
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/chatmeter
-  - type: X
-    url: https://x.com/chatmeter
-  - type: Plans
-    url: plans/chatmeter-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/chatmeter-rate-limits.yml
-  - type: FinOps
-    url: finops/chatmeter-finops.yml
-  - type: Authentication
-    url: authentication/chatmeter-authentication.yml
   - type: Conventions
     url: conventions/chatmeter-conventions.yml
-  - type: ErrorCatalog
-    url: errors/chatmeter-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/chatmeter-lifecycle.yml
-  - type: Conformance
-    url: conformance/chatmeter-conformance.yml
-  - type: Compliance
-    url: conformance/chatmeter-conformance.yml
   - type: DataModel
     url: data-model/chatmeter-data-model.yml
-  - type: Packages
-    url: packages/chatmeter-packages.yml
-  - type: X-MCPServerCandidate
-    url: mcp/chatmeter-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
-  - type: LLMsTxt
-    url: llms/chatmeter-llms.txt
-  - type: GitHubOrganization
-    url: https://github.com/chatmeter
-  - type: HelpCenter
-    url: https://help.alchemer.com/help/chatmeter
-  - type: Support
-    url: https://www.chatmeter.com/contactsupport/
-  - type: TermsOfService
-    url: https://www.chatmeter.com/terms-of-service/
-  - type: PrivacyPolicy
-    url: https://www.chatmeter.com/privacy-policy/
-  - type: Login
-    url: https://live.chatmeter.com/
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  aid: chatmeter:chatmeter-api
+
+x-coverage:
+  state: gated
+  reason: partner-login
+  method: derived
+  generated: '2026-10-20'
+  generator: derive-coverage.py (pre-flight evidence)
+  detail: >-
+    the company serves an API surface but requires credentials before any description of it can be read
+  evidence:
+  - url: https://live.chatmeter.com/api/mcp
+    status: 401
+  - url: https://support.chatmeter.com/mcp/v1
+    status: 401
+  - url: https://www.chatmeter.com
+    status: 200
 x-enrichment:
-  date: '2026-08-13'
-  status: enriched
-  artifacts_added: 10
-  pass: local-v1
+  date: '2026-10-20'
+  status: minimal
+  artifacts_added: 0
+  pass: local-v5
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: The Chatmeter API reference lives in a Zendesk category on support.chatmeter.com that answers 401 and redirects to a customer login, live.chatmeter.com/v5 302s to sign-in, and the public Alchemer help hub carries only end-user Chatmeter articles with no API reference.
+  evidence:
+  - url: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API
+    status: 401
+  - url: https://live.chatmeter.com/v5/openapi.json
+    status: 302
+  - url: https://help.alchemer.com/help/chatmeter
+    status: 200
+  checked: '2026-10-20'
