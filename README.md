@@ -64,25 +64,121 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Chatmeter is an AI-powered multi-location intelligence platform that helps businesses manage their local brand presence across listings, reviews, social media, and competitive benchmarking.
+Chatmeter is an AI-powered multi-location intelligence platform offering a REST API for managing business listings, monitoring and responding to reviews, tracking social mentions, running surveys, and benchmarking competitive performance across locations.
 
-## API
+**Areas:** Reputation Management · Local SEO · Listings Management · Review Management · Social Media · Multi-Location · Competitive Intelligence
 
-The Chatmeter REST API enables programmatic access to all platform data and administrative functions, including location listing management, review retrieval and response, social monitoring, survey management, and user administration. Authentication uses JSON Web Tokens (JWT). API access is included in the Premium tier.
+## Chatmeter on APIs.io
 
-- API Reference: https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API (HTTP 401 — redirects to a Salesforce community login)
-- Base URL: https://live.chatmeter.com/v5
+Everything profiled for Chatmeter is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/chatmeter/](https://apis.io/providers/chatmeter/)** — or go straight to one of the APIs or properties below.
 
-Chatmeter publishes no OpenAPI, AsyncAPI, GraphQL SDL, or Postman collection, and both of its API
-documentation hosts are credential-gated (`support.chatmeter.com` 401 to a Salesforce community login,
-`apidocs.chatmeter.com` 401 with HTTP Basic). The API surface recorded in this repository was established
-by live unauthenticated probe on 2026-08-13, not read from a contract. The base URL previously recorded
-here, `https://newapi.chatmeter.com`, no longer resolves in DNS and was retired with no public notice.
+### APIs (1)
 
-## Links
+- [Chatmeter API](https://apis.io/apis/chatmeter/chatmeter-api/) — REST API for accessing and administrating all Chatmeter platform data including location listings, review management, social monitoring, surveys, and user…
 
-- Website: https://www.chatmeter.com
-- Blog: https://www.chatmeter.com/category/blog/
-- Pricing: https://www.chatmeter.com/pricing/
-- LinkedIn: https://www.linkedin.com/company/chatmeter
-- X: https://x.com/chatmeter
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [chatmeter](https://apis.io/servers/chatmeter/chatmeter/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Chatmeter Context](https://apis.io/jsonld/chatmeter/chatmeter-context/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Chatmeter Domain Security](https://apis.io/security/chatmeter/chatmeter-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Chatmeter Plans Pricing](https://apis.io/plans/chatmeter/chatmeter-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Chatmeter Rate Limits](https://apis.io/rate-limits/chatmeter/chatmeter-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Chatmeter Finops](https://apis.io/finops/chatmeter/chatmeter-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.chatmeter.com)
+- [Documentation](https://support.chatmeter.com/hc/en-us/categories/4465860037275-Chatmeter-API)
+- [Getting started](https://help.alchemer.com/help/getting-started)
+- [Pricing](https://www.chatmeter.com/pricing/)
+- [Support](https://www.chatmeter.com/contactsupport/)
+- [Blog](https://www.chatmeter.com/category/blog/)
+- [Terms of service](https://www.chatmeter.com/terms-of-service/)
+- [Privacy policy](https://www.chatmeter.com/privacy-policy/)
+- [GitHub](https://github.com/chatmeter)
+
+## API Evangelist rating
+
+**Kin Score 34.4** — thin · rubric 0.24.0 · scored 2026-10-20
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.8 |
+| Contract quality | 6.7 |
+| Contract governance | 18.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 77.6 |
+
+**Agent readiness 0.0** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 23.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/chatmeter/](https://apis.io/providers/chatmeter/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Chatmeter: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/chatmeter/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
